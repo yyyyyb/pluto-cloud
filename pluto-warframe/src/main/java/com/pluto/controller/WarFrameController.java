@@ -3,6 +3,7 @@ package com.pluto.controller;
 import com.pluto.R;
 import com.pluto.service.WarFrameService;
 import com.pluto.vo.FissureVO;
+import com.pluto.vo.SortieVO;
 import com.pluto.warFrame.entity.*;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -46,8 +47,8 @@ public class WarFrameController {
      * @return
      */
     @GetMapping("sortie")
-    public R<Sortie> getSortie() {
-        return R.success(null);
+    public R<SortieVO> getSortie() {
+        return R.success(warFrameService.getSortie());
     }
 
     /**

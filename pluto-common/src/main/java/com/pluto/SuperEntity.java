@@ -13,6 +13,6 @@ import lombok.experimental.Accessors;
 @ToString(callSuper = true)
 public class SuperEntity<T>{
 
-    @TableId(value = "id", type = IdType.AUTO)
+    @TableId(value = "id", type = IdType.ASSIGN_ID)
     protected T id;
 }

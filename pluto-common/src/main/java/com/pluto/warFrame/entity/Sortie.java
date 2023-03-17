@@ -69,7 +69,7 @@ public class Sortie implements Serializable {
     /**
      * 地点
      */
-    private boolean expired;
+    private Boolean expired;
 
     /**
      * 已过时间

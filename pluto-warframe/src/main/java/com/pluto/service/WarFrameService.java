@@ -1,6 +1,7 @@
 package com.pluto.service;
 
 import com.pluto.vo.FissureVO;
+import com.pluto.vo.SortieVO;
 
 import java.util.List;
 
@@ -12,4 +13,10 @@ public interface WarFrameService {
      * @return
      */
     List<FissureVO> getFissures(String type);
+
+    /**
+     * 获取warframe官方突击信息
+     * @return
+     */
+    SortieVO getSortie();
 }
