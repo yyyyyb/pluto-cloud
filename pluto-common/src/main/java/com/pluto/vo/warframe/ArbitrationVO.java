@@ -1,4 +1,4 @@
-package com.pluto.warFrame.entity;
+package com.pluto.vo.warframe;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -12,9 +12,8 @@ import java.io.Serializable;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class Arbitration implements Serializable {
-
-    private static final long serialVersionUID = 3537051316603832988L;
+public class ArbitrationVO implements Serializable {
+    private static final long serialVersionUID = -648337815129637320L;
 
     /**
      * 数据id
@@ -41,31 +40,10 @@ public class Arbitration implements Serializable {
      */
     private String type;
 
-
-    /**
-     * 任务类型
-     */
-    private String typeKey;
-
-    /**
-     * 是否archWing
-     */
-    private Boolean archwing;
-
-    /**
-     * 是否archWing
-     */
-    private Boolean sharkwing;
-
     /**
      * 任务地点
      */
     private String node;
-
-    /**
-     * 任务地点
-     */
-    private String nodeKey;
 
     /**
      * 是否有效

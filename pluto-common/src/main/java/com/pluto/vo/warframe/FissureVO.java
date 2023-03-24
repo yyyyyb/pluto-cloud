@@ -1,4 +1,4 @@
-package com.pluto.vo;
+package com.pluto.vo.warframe;
 
 import lombok.Builder;
 import lombok.Data;

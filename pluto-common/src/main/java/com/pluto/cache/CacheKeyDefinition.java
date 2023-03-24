@@ -5,8 +5,22 @@ package com.pluto.cache;
  * <p>
  */
 public interface CacheKeyDefinition {
+
     /**
      * warframe redis key
+     * 突击key
      */
     String WARFRAME_SORTIE = "warframe:sortie";
+
+    /**
+     * warframe redis key
+     * 午夜电波key
+     */
+    String WARFRAME_NIGHT_WAVE = "warframe:nightWave";
+
+    /**
+     * warframe redis key
+     * 虚空商人key
+     */
+    String WARFRAME_VOID_TRADER = "warframe:voidTrader";
 }

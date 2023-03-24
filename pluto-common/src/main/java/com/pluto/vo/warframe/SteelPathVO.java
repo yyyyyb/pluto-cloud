@@ -1,4 +1,4 @@
-package com.pluto.warFrame.entity;
+package com.pluto.vo.warframe;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -13,41 +13,37 @@ import java.util.List;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class SteelPath implements Serializable {
-    private static final long serialVersionUID = -1871091593925823129L;
+public class SteelPathVO implements Serializable {
+
+    private static final long serialVersionUID = 8021880513574583438L;
 
     /**
-     *
+     * 当前奖励
      */
-    private Reward currentReward;
+    private SteelPathReWardVO current;
 
     /**
-     *
+     * 开始时间
      */
     private String activation;
 
     /**
-     *
+     * 过期时间
      */
     private String expiry;
 
     /**
-     *
+     * 剩余时间
      */
     private String remaining;
 
     /**
-     *
+     * 下一个奖励
      */
-    private List<Reward> rotation;
+    private SteelPathReWardVO next;
 
     /**
-     *
+     * 常驻奖励
      */
-    private List<Reward> evergreens;
-
-    /**
-     *
-     */
-    private Incursion incursions;
+    private List<SteelPathReWardVO> resident;
 }

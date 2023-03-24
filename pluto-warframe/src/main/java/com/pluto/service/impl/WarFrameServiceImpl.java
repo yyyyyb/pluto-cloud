@@ -10,12 +10,9 @@ import com.pluto.service.WarFrameService;
 import com.pluto.util.ChineseUtil;
 import com.pluto.util.DateUtil;
 import com.pluto.util.RedisUtil;
-import com.pluto.vo.FissureVO;
-import com.pluto.vo.SortieVO;
-import com.pluto.warFrame.entity.Fissure;
+import com.pluto.vo.warframe.*;
+import com.pluto.warFrame.entity.*;
 import com.pluto.warFrame.constants.WarFrameConstants;
-import com.pluto.warFrame.entity.Sortie;
-import com.pluto.warFrame.entity.Variant;
 import com.pluto.warFrame.enumeration.FissureType;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
@@ -40,7 +37,7 @@ public class WarFrameServiceImpl implements WarFrameService {
     private SortieService sortieService;
 
     /**
-     * 根据类型获取warframe官方裂缝信息
+     * 裂缝信息
      * @param type
      * @return
      */
@@ -85,14 +82,13 @@ public class WarFrameServiceImpl implements WarFrameService {
     }
 
     /**
-     * 获取突击信息
+     * 突击信息
      * @return
      */
     @Override
     public SortieVO getSortie(){
         //如果redis中已经存储，从redis中取
-        if (redisUtil.get(CacheKeyDefinition.WARFRAME_SORTIE) == null
-                || StringUtils.isBlank((String)redisUtil.get(CacheKeyDefinition.WARFRAME_SORTIE))) {
+        if (redisUtil.get(CacheKeyDefinition.WARFRAME_SORTIE) == null) {
             SortieVO result = new SortieVO();
 
             //查询数据库获取当日有没有
@@ -131,20 +127,156 @@ public class WarFrameServiceImpl implements WarFrameService {
                             sortieDTO.setSortie3Desc(temp.getModifier());
                         }
                     }
-                }
-                sortieService.save(sortieDTO);
+                    sortieService.save(sortieDTO);
 
-                BeanUtils.copyProperties(sortieDTO, result);
+                    BeanUtils.copyProperties(sortieDTO, result);
+                    //数据放入redis中
+                    redisUtil.set(CacheKeyDefinition.WARFRAME_SORTIE, result, DateUtil.getTodayRemainSecond());
+                }
             } else {
                 BeanUtils.copyProperties(sortieDTO, result);
+                //数据放入redis中
+                redisUtil.set(CacheKeyDefinition.WARFRAME_SORTIE, result, DateUtil.getTodayRemainSecond());
             }
-            //数据放入redis中
-            redisUtil.set(CacheKeyDefinition.WARFRAME_SORTIE, result, DateUtil.getTodayRemainSecond());
 
             return result;
         } else {
             return (SortieVO) redisUtil.get(CacheKeyDefinition.WARFRAME_SORTIE);
         }
+    }
+
+    /**
+     * 午夜电波信息
+     * @return
+     */
+    @Override
+    public List<NightWaveVO> getNightWave() {
+        if (redisUtil.get(CacheKeyDefinition.WARFRAME_NIGHT_WAVE) == null) {
+            String nightWaveStr = restTemplate.getForObject(WarFrameConstants.NIGHT_WAVE_URL, String.class);
+            NightWave nightWave = getObjectFormat(nightWaveStr, NightWave.class);
+
+            List<NightWaveVO> result = new ArrayList<>();
+            if (nightWave != null && nightWave.getActive()) {
+                List<ActiveChallenge> activeChallenges = nightWave.getActiveChallenges();
+                activeChallenges.forEach(t-> {
+                    NightWaveVO temp = new NightWaveVO();
+                    BeanUtils.copyProperties(t, temp);
+                    result.add(temp);
+                });
+
+                //数据放入redis中
+                redisUtil.set(CacheKeyDefinition.WARFRAME_NIGHT_WAVE, result, DateUtil.getTodayRemainSecond());
+            }
+
+            return result;
+        } else {
+            return (List<NightWaveVO>) redisUtil.get(CacheKeyDefinition.WARFRAME_NIGHT_WAVE);
+        }
+    }
+
+    /**
+     * 获取仲裁信息
+     * @return
+     */
+    @Override
+    public ArbitrationVO getArbitration() {
+        ArbitrationVO result = null;
+
+        String arbitrationStr = restTemplate.getForObject(WarFrameConstants.ARBITRATION_URL, String.class);
+        Arbitration arbitration = getObjectFormat(arbitrationStr, Arbitration.class);
+
+        if (arbitration != null && arbitration.getExpired()) {
+            result = new ArbitrationVO();
+            BeanUtils.copyProperties(arbitration, result);
+        }
+
+        return result;
+    }
+
+    /**
+     * 获取虚空商人信息
+     * @return
+     */
+    @Override
+    public VoidTraderVO getVoidTrader() {
+        if (redisUtil.get(CacheKeyDefinition.WARFRAME_VOID_TRADER) == null) {
+            String voidTraderStr = restTemplate.getForObject(WarFrameConstants.TRADER_URL, String.class);
+            VoidTrader voidTrader = getObjectFormat(voidTraderStr, VoidTrader.class);
+
+            VoidTraderVO result = null;
+            if (voidTrader != null) {
+                result = new VoidTraderVO();
+                List<InventoryVO> inventoryVOS = new ArrayList<>();
+                BeanUtils.copyProperties(voidTrader, result);
+                voidTrader.getInventory().forEach(t-> {
+                    InventoryVO vo = new InventoryVO();
+                    BeanUtils.copyProperties(t, vo);
+                    inventoryVOS.add(vo);
+                });
+                result.setInventory(inventoryVOS);
+
+                //数据放入redis中
+                redisUtil.set(CacheKeyDefinition.WARFRAME_VOID_TRADER, result, DateUtil.getTodayRemainSecond());
+            }
+
+            return result;
+        } else {
+            return (VoidTraderVO) redisUtil.get(CacheKeyDefinition.WARFRAME_VOID_TRADER);
+        }
+    }
+
+    /**
+     * 获取入侵信息
+     * @return
+     */
+    @Override
+    public InvasionVO getInvasion() {
+        return null;
+    }
+
+    /**
+     * 获取钢铁奖励信息
+     * @return
+     */
+    @Override
+    public SteelPathVO getSteelPath() {
+        SteelPathVO result = null;
+
+        String steelPathStr = restTemplate.getForObject(WarFrameConstants.STEEL_PATH_URL, String.class);
+        SteelPath steelPath = getObjectFormat(steelPathStr, SteelPath.class);
+
+        if (steelPath != null) {
+            result = new SteelPathVO();
+            SteelPathReWardVO steelPathReWardVO = new SteelPathReWardVO();
+            BeanUtils.copyProperties(steelPath.getCurrentReward(), steelPathReWardVO);
+
+            result.setCurrent(steelPathReWardVO);
+            result.setActivation(steelPath.getActivation());
+            result.setExpiry(steelPath.getExpiry());
+            result.setRemaining(steelPath.getRemaining());
+
+            int index = 0;
+            for (int i = 0; i < steelPath.getRotation().size(); i++) {
+                Reward reward = steelPath.getRotation().get(i);
+                if (StringUtils.equals(reward.getName(), steelPath.getCurrentReward().getName())) {
+                    index = i;
+                }
+            }
+
+            steelPathReWardVO = new SteelPathReWardVO();
+            BeanUtils.copyProperties(steelPath.getRotation().get(index + 1), steelPathReWardVO);
+            result.setNext(steelPathReWardVO);
+
+            List<SteelPathReWardVO> resident = new ArrayList<>();
+            steelPath.getEvergreens().forEach(t -> {
+                SteelPathReWardVO temp = new SteelPathReWardVO();
+                BeanUtils.copyProperties(t, temp);
+                resident.add(temp);
+            });
+            result.setResident(resident);
+        }
+
+        return result;
     }
 
     /**
@@ -160,6 +292,7 @@ public class WarFrameServiceImpl implements WarFrameService {
             T temp = new ObjectMapper().readValue(jsonValue, t);
             return temp;
         } catch (Exception e) {
+            e.printStackTrace();
             log.error("json转换失败, json={}", jsonValue);
         }
 
@@ -172,6 +305,7 @@ public class WarFrameServiceImpl implements WarFrameService {
             T t = new ObjectMapper().readValue(jsonValue, typeReference);
             return t;
         } catch (Exception e) {
+            e.printStackTrace();
             log.error("json转换失败, json={}", jsonValue);
         }
 

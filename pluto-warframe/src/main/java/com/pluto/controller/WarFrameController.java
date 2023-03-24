@@ -2,9 +2,7 @@ package com.pluto.controller;
 
 import com.pluto.R;
 import com.pluto.service.WarFrameService;
-import com.pluto.vo.FissureVO;
-import com.pluto.vo.SortieVO;
-import com.pluto.warFrame.entity.*;
+import com.pluto.vo.warframe.*;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -56,8 +54,8 @@ public class WarFrameController {
      * @return
      */
     @GetMapping("nightWave")
-    public R<List<NightWave>> getNightWave() {
-        return R.success(null);
+    public R<List<NightWaveVO>> getNightWave() {
+        return R.success(warFrameService.getNightWave());
     }
 
     /**
@@ -65,8 +63,8 @@ public class WarFrameController {
      * @return
      */
     @GetMapping("arbitration")
-    public R<Arbitration> getArbitration() {
-        return R.success(null);
+    public R<ArbitrationVO> getArbitration() {
+        return R.success(warFrameService.getArbitration());
     }
 
     /**
@@ -74,8 +72,8 @@ public class WarFrameController {
      * @return
      */
     @GetMapping("voidTrader")
-    public R<VoidTrader> getVoidTrader() {
-        return R.success(null);
+    public R<VoidTraderVO> getVoidTrader() {
+        return R.success(warFrameService.getVoidTrader());
     }
 
     /**
@@ -83,8 +81,8 @@ public class WarFrameController {
      * @return
      */
     @GetMapping("invasion")
-    public R<List<Invasion>> getInvasion() {
-        return R.success(null);
+    public R<InvasionVO> getInvasion() {
+        return R.success(warFrameService.getInvasion());
     }
 
 
@@ -93,7 +91,7 @@ public class WarFrameController {
      * @return
      */
     @GetMapping("steelPath")
-    public R<List<SteelPath>> getSteelPath() {
-        return R.success(null);
+    public R<SteelPathVO> getSteelPath() {
+        return R.success(warFrameService.getSteelPath());
     }
 }

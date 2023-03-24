@@ -60,7 +60,7 @@ public class NightWave implements Serializable {
     /**
      * ...?
      */
-    private List<String> params;
+    private Object params;
 
     /**
      * ...?
@@ -71,4 +71,9 @@ public class NightWave implements Serializable {
      * 午夜电波挑战
      */
     private List<ActiveChallenge> activeChallenges;
+
+    /**
+     * 奖励类型
+     */
+    private List<String> rewardTypes;
 }

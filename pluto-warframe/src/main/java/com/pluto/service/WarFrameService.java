@@ -1,22 +1,51 @@
 package com.pluto.service;
 
-import com.pluto.vo.FissureVO;
-import com.pluto.vo.SortieVO;
+import com.pluto.vo.warframe.*;
 
 import java.util.List;
 
 public interface WarFrameService {
 
     /**
-     * 根据类型获取warframe官方裂缝信息
+     * 裂缝信息
      * @param type
      * @return
      */
     List<FissureVO> getFissures(String type);
 
     /**
-     * 获取warframe官方突击信息
+     * 突击信息
      * @return
      */
     SortieVO getSortie();
+
+    /**
+     * 午夜电波信息
+     * @return
+     */
+    List<NightWaveVO> getNightWave();
+
+    /**
+     * 仲裁信息
+     * @return
+     */
+    ArbitrationVO getArbitration();
+
+    /**
+     * 虚空商人信息
+     * @return
+     */
+    VoidTraderVO getVoidTrader();
+
+    /**
+     * 入侵信息
+     * @return
+     */
+    InvasionVO getInvasion();
+
+    /**
+     * 钢铁奖励信息
+     * @return
+     */
+    SteelPathVO getSteelPath();
 }

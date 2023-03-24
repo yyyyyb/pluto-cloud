@@ -1,4 +1,4 @@
-package com.pluto.warFrame.entity;
+package com.pluto.vo.warframe;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -7,20 +7,11 @@ import lombok.NoArgsConstructor;
 import java.io.Serializable;
 import java.util.List;
 
-/**
- * warframe官方虚空商人信息
- */
 @Data
-@NoArgsConstructor
 @AllArgsConstructor
-public class VoidTrader implements Serializable {
-
-    private static final long serialVersionUID = 7781002896026700487L;
-
-    /**
-     * 数据id
-     */
-    private String id;
+@NoArgsConstructor
+public class VoidTraderVO implements Serializable {
+    private static final long serialVersionUID = -4078615420933849012L;
 
     /**
      * 开始时间
@@ -28,7 +19,7 @@ public class VoidTrader implements Serializable {
     private String activation;
 
     /**
-     * 距离开始时间
+     * （expired为false时为距离任务开始时间，true时为任务已开始时间）
      */
     private String startString;
 
@@ -55,26 +46,10 @@ public class VoidTrader implements Serializable {
     /**
      *
      */
-    private List<Inventory> inventory;
-
-    /**
-     *
-     */
-    private String psId;
+    private List<InventoryVO> inventory;
 
     /**
      * 结束时间
      */
     private String endString;
-
-    /**
-     * 任务奖励点数
-     */
-    private String initialStart;
-
-
-    /**
-     * 任务奖励点数
-     */
-    private List<String> schedule;
 }

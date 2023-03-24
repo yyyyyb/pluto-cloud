@@ -1,14 +1,11 @@
-package com.pluto.vo;
+package com.pluto.vo.warframe;
 
-import com.baomidou.mybatisplus.annotation.TableField;
-import com.pluto.warFrame.entity.Variant;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
 import java.util.Date;
-import java.util.List;
 
 /**
  * warframe官方突击信息
