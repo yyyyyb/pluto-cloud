@@ -280,6 +280,101 @@ public class WarFrameServiceImpl implements WarFrameService {
     }
 
     /**
+     * 执行官任务
+     */
+    @Override
+    public ArchonVO getArchonHunt() {
+        if (redisUtil.get(CacheKeyDefinition.WARFRAME_ARCHON) == null) {
+            String archonStr = restTemplate.getForObject(WarFrameConstants.ARCHON_HUNT_URL, String.class);
+            Archon archon = getObjectFormat(archonStr, Archon.class);
+
+            ArchonVO result = new ArchonVO();
+            if (archon != null && archon.getActive()) {
+                BeanUtils.copyProperties(archon, result);
+
+                List<MissionVO> missions = new ArrayList<>();
+                archon.getMissions().forEach(t -> {
+                    MissionVO mission = new MissionVO();
+                    BeanUtils.copyProperties(t, mission);
+                    missions.add(mission);
+                });
+                result.setMissions(missions);
+
+                redisUtil.set(CacheKeyDefinition.WARFRAME_ARCHON, result, DateUtil.getTodayRemainSecond());
+                return result;
+            }
+        } else {
+            return (ArchonVO) redisUtil.get(CacheKeyDefinition.WARFRAME_ARCHON);
+        }
+        return null;
+    }
+
+    /**
+     * 获取平原信息
+     */
+    @Override
+    public List<CycleVO> getCycle() {
+        List<CycleVO> result = new ArrayList<>();
+        CycleVO cycleVO;
+
+        //地球
+        String earthStr = restTemplate.getForObject(WarFrameConstants.EARTH_CYCLE_URL, String.class);
+        Cycle earth = getObjectFormat(earthStr, Cycle.class);
+        if (earth != null) {
+            cycleVO = new CycleVO();
+            BeanUtils.copyProperties(earth, cycleVO);
+            result.add(cycleVO);
+        }
+
+        //希图斯
+        String centusStr = restTemplate.getForObject(WarFrameConstants.CETUS_CYCLE_URL, String.class);
+        Cycle centus = getObjectFormat(centusStr, Cycle.class);
+        if (centus != null) {
+            cycleVO = new CycleVO();
+            BeanUtils.copyProperties(centus, cycleVO);
+            result.add(cycleVO);
+        }
+
+        //福尔图娜
+        String vallisStr = restTemplate.getForObject(WarFrameConstants.VALLIS_CYCLE_URL, String.class);
+        Cycle valli = getObjectFormat(vallisStr, Cycle.class);
+        if (valli != null) {
+            cycleVO = new CycleVO();
+            BeanUtils.copyProperties(valli, cycleVO);
+            result.add(cycleVO);
+        }
+
+        //火卫2
+        String cambionStr = restTemplate.getForObject(WarFrameConstants.CAMBION_CYCLE_URL, String.class);
+        Cycle cambion = getObjectFormat(cambionStr, Cycle.class);
+        if (cambion != null) {
+            cycleVO = new CycleVO();
+            BeanUtils.copyProperties(cambion, cycleVO);
+            result.add(cycleVO);
+        }
+
+        //扎里曼
+        String zarimanStr = restTemplate.getForObject(WarFrameConstants.ZARIMAN_CYCLE_URL, String.class);
+        Cycle zariman = getObjectFormat(zarimanStr, Cycle.class);
+        if (zariman != null) {
+            cycleVO = new CycleVO();
+            BeanUtils.copyProperties(zariman, cycleVO);
+            result.add(cycleVO);
+        }
+
+        return result;
+    }
+
+    /**
+     * 获取赏金任务信息
+     */
+    @Override
+    public void getSyndicateMissions() {
+
+    }
+
+
+    /**
      * json
      * @param jsonValue
      * @param t

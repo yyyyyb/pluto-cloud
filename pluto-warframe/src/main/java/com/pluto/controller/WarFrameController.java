@@ -85,7 +85,6 @@ public class WarFrameController {
         return R.success(warFrameService.getInvasion());
     }
 
-
     /**
      * 获取钢铁奖励信息
      * @return
@@ -93,5 +92,23 @@ public class WarFrameController {
     @GetMapping("steelPath")
     public R<SteelPathVO> getSteelPath() {
         return R.success(warFrameService.getSteelPath());
+    }
+
+    /**
+     * 获取执行官信息
+     * @return
+     */
+    @GetMapping("archon")
+    public R<ArchonVO> getArchon() {
+        return R.success(warFrameService.getArchonHunt());
+    }
+
+    /**
+     * 获取平原信息
+     * @return
+     */
+    @GetMapping("cycle")
+    public R<List<CycleVO>> getCycle() {
+        return R.success(warFrameService.getCycle());
     }
 }

@@ -26,7 +26,7 @@ public class NightWaveVO implements Serializable {
     private String expiry;
 
     /**
-     * 是否有校
+     * 是否有效
      */
     private Boolean active;
 

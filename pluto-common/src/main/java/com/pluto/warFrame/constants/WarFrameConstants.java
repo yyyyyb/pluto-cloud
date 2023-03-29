@@ -40,11 +40,43 @@ public class WarFrameConstants {
      */
     public static final String STEEL_PATH_URL = "https://api.warframestat.us/pc/steelPath?language=zh";
 
+    /**
+     * 执行官url
+     */
+    public static final String ARCHON_HUNT_URL = "https://api.warframestat.us/pc/archonHunt?language=zh";
+
+    /**
+     * 地球信息
+     */
+    public static final String EARTH_CYCLE_URL = "https://api.warframestat.us/pc/earthCycle?language=zh";
+
+    /**
+     * 希图斯信息
+     */
+    public static final String CETUS_CYCLE_URL = "https://api.warframestat.us/pc/cetusCycle?language=zh";
+
+    /**
+     * 扎里曼信息
+     */
+    public static final String ZARIMAN_CYCLE_URL = "https://api.warframestat.us/pc/zarimanCycle?language=zh";
+
+    /**
+     * 福尔图娜信息
+     */
+    public static final String VALLIS_CYCLE_URL = "https://api.warframestat.us/pc/vallisCycle?language=zh";
+
+    /**
+     * 火卫2信息
+     */
+    public static final String CAMBION_CYCLE_URL = "https://api.warframestat.us/pc/cambionCycle?language=zh";
     //todo
-    //syndicateMissions
-    //flashSales
-    //dailyDeals 每日特惠
-    //earthCycle、cetusCycle、cambionCycle、zarimanCycle、vallisCycle 平原
-    //sentientOutposts
-    //archonHunt 执行官
+    /**
+     * 每日特惠url
+     */
+    public static final String DAILY_DEALS_URL = "https://api.warframestat.us/pc/dailyDeals?language=zh";
+
+    /**
+     * 集团声望任务
+     */
+    public static final String SYNDICATE_MISSIONS_URL = "https://api.warframestat.us/pc/syndicateMissions?language=zh";
 }

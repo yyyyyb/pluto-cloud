@@ -23,4 +23,10 @@ public interface CacheKeyDefinition {
      * 虚空商人key
      */
     String WARFRAME_VOID_TRADER = "warframe:voidTrader";
+
+    /**
+     * warframe redis key
+     * 执行官key
+     */
+    String WARFRAME_ARCHON = "warframe:archon";
 }

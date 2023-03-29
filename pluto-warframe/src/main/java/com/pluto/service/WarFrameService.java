@@ -48,4 +48,19 @@ public interface WarFrameService {
      * @return
      */
     SteelPathVO getSteelPath();
+
+    /**
+     * 执行官任务
+     */
+    ArchonVO getArchonHunt();
+
+    /**
+     * 平原信息
+     */
+    List<CycleVO> getCycle();
+
+    /**
+     * 赏金信息
+     */
+    void getSyndicateMissions();
 }
