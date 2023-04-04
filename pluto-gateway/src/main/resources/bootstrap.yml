@@ -1,0 +1,28 @@
+pluto:
+  nacos:
+    ip: @nacos.ip@
+    port: @nacos.port@
+    namespace: @nacos.namespace@
+    username: @nacos.username@
+    password: @nacos.password@
+
+server:
+  port: 8699
+
+spring:
+  application:
+    name: @project.artifactId@
+  profiles:
+    active: @profile.active@
+
+  cloud:
+    nacos:
+      discovery:
+        username: ${pluto.nacos.username}
+        password: ${pluto.nacos.password}
+        server-addr: ${pluto.nacos.ip}:${pluto.nacos.port}
+        namespace: ${pluto.nacos.namespace}
+    gateway:
+      discovery:
+        locator:
+          enabled: true
